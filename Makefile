@@ -2,7 +2,7 @@
 
 ARCH     ?= arm64
 SDK      ?= iphoneos
-MEMCTL_INC_DIR ?= .
+MEMCTL_INC_DIR ?= ../include
 
 CLANG   := $(shell xcrun --sdk $(SDK) --find clang)
 AR      := $(shell xcrun --sdk $(SDK) --find ar)
