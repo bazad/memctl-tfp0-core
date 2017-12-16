@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <mach/host_priv.h>
+#include <stdio.h>
 
 /*
  * found_kernel_port
@@ -56,10 +57,30 @@ static bool try_task_for_pid_0() {
 	return found_kernel_port();
 }
 
+static size_t format_core_error(char *buffer, size_t size, error_handle error) {
+	assert(error->size > 0);
+	int len = snprintf(buffer, size, "%s", (char *) error->data);
+	return (len > 0 ? len : 0);
+}
+
+struct error_type core_error = {
+	.static_description = "core error",
+	.destroy_error_data = NULL,
+	.format_description = format_core_error,
+};
+
+static void error_core(const char *fmt, ...) {
+	va_list ap;
+	va_start(ap, fmt);
+	error_push_printf(&core_error, fmt, ap);
+	va_end(ap);
+}
+
 bool core_load() {
 	if (try_host_special_ports() || try_task_for_pid_0()) {
 		return true;
 	}
-	error_core("could not obtain kernel task port via host_get_special_port() or task_for_pid(0)");
+	error_core("could not obtain kernel task port via "
+			"host_get_special_port() or task_for_pid(0)");
 	return false;
 }
