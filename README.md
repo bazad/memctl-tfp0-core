@@ -1,4 +1,4 @@
-## memctl-tfp0-core
+# memctl-tfp0-core
 
 <!-- Brandon Azad -->
 
@@ -8,12 +8,17 @@ jailbreaks use port 4).
 
 [memctl]: https://github.com/bazad/memctl
 
-It has been tested with [mach_portal] on iOS 10.1.1 and [yalu102] on iOS 10.2.
+It has been tested with [Electra] on iOS 11.1.2 and [yalu102] on iOS 10.2.
 
-[mach_portal]: https://bugs.chromium.org/p/project-zero/issues/detail?id=965
+[Electra]: https://github.com/coolstar/electra
 [yalu102]: https://github.com/kpwn/yalu102
 
-### Building
+## Signing and entitlements
+
+Some jailbreaks need binaries to be signed with special entitlements for them to run properly. Be
+sure to add any such entitlements to `entitlements.plist` before building memctl.
+
+## Building
 
 To build memctl using this core:
 
@@ -26,7 +31,7 @@ To build memctl using this core:
 	$ cd ..
 	$ make
 
-### Running
+## Running
 
 To run memctl, first copy it to the device you will analyze. On the device, run memctl with no
 arguments to drop into a REPL.
@@ -36,6 +41,6 @@ arguments to drop into a REPL.
 	          START - END             [ VSIZE ] PRT/MAX SHRMOD DEPTH RESIDENT REFCNT TAG
 	fffffff022000000-fffffff124000000 [  4.0G ] ---/---    NUL     0        0      0   0
 
-### License
+## License
 
 memctl-tfp0-core is released under the MIT license.
