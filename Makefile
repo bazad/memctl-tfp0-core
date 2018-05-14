@@ -4,12 +4,12 @@ ARCH     ?= arm64
 SDK      ?= iphoneos
 MEMCTL_INC_DIR ?= ../include
 
+SYSROOT := $(shell xcrun --sdk $(SDK) --show-sdk-path)
+ifeq ($(SYSROOT),)
+$(error Could not find SDK $(SDK))
+endif
 CLANG   := $(shell xcrun --sdk $(SDK) --find clang)
 AR      := $(shell xcrun --sdk $(SDK) --find ar)
-ifeq ($(CLANG),)
-$(error Could not find clang for SDK $(SDK))
-endif
-SYSROOT := $(shell xcrun --sdk $(SDK) --show-sdk-path)
 CC      := $(CLANG) -isysroot $(SYSROOT) -arch $(ARCH)
 
 SRC_DIR = src
